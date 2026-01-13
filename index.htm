@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Portal</title>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: #0e0e0e;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+
+  h1 {
+    margin-top: 20px;
+  }
+
+  #ads {
+    margin: 40px auto;
+    padding: 20px;
+    max-width: 400px;
+    background: #1c1c1c;
+    border-radius: 10px;
+  }
+
+  #ads p {
+    margin: 10px 0;
+  }
+
+  #ads a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: #0088ff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+
+  #videoBox {
+    display: none;
+    margin-top: 20px;
+  }
+
+  video {
+    width: 95%;
+    max-width: 720px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #000;
+  }
+</style>
+
+<!-- LOAD VIDEO LIST -->
+<script src="video.js"></script>
+
+<script>
+  function getVideoId() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("v");
+  }
+
+  function showVideo() {
+    const id = getVideoId();
+
+    if (!id || !videos[id]) {
+      document.getElementById("ads").innerHTML =
+        "<p>❌ Video not found</p>";
+      return;
+    }
+
+    document.getElementById("ads").style.display = "none";
+
+    const player = document.getElementById("player");
+    player.src = videos[id].link;
+
+    document.getElementById("title").innerText =
+      videos[id].title;
+
+    document.getElementById("videoBox").style.display = "block";
+  }
+
+  window.onload = function () {
+    setTimeout(showVideo, 5000); // 5 sec ad delay
+  };
+</script>
+</head>
+
+<body>
+
+<h1>🔥 Watch Video</h1>
+
+<!-- ADS SECTION -->
+<div id="ads">
+  <p>📢 Join our Telegram Channel</p>
+  <a href="https://t.me/yourchannel" target="_blank">Join Now</a>
+
+  <!-- 🔴 PASTE ADSTERRA CODE BELOW 🔴 -->
+  <!-- Example:
+  <script src="https://your-adsterra-script.js"></script>
+  -->
+
+  <p>⏳ Video starts in 5 seconds...</p>
+</div>
+
+<!-- VIDEO PLAYER -->
+<div id="videoBox">
+  <h2 id="title"></h2>
+  <video id="player" controls autoplay playsinline></video>
+</div>
+
+</body>
+</html>
